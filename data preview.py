@@ -1,6 +1,6 @@
 import pandas as pd
-import matplotlib.pyplot as plt
 from sklearn import datasets, linear_model
+from sklearn.metrics import mean_squared_error
 
 mydf = pd.read_csv('.//all//train.csv', sep=',', na_values="NA")
 mydf_dummy = pd.get_dummies(mydf, dummy_na=True)
@@ -12,6 +12,10 @@ regr = linear_model.LinearRegression()
 
 # Train the model using the training sets
 regr.fit(x, y)
+
+
+
+
 
 test = pd.read_csv('.//all//test.csv', sep=',', na_values="NA")
 test_dummy = pd.get_dummies(test, dummy_na=True)
@@ -29,4 +33,18 @@ test_y_pred_df = pd.DataFrame(data=test_y_pred, index=test["Id"], columns=["Sale
 test_y_pred_df.to_csv(".//all//pred.csv", sep=",")
 
 
+from sklearn import linear_model
+lasso = linear_model.Lasso(alpha=0.1, max_iter=100000)
+lasso.fit(x,y)
+test_y_pred_lasso = lasso.predict(test_x)
 
+test_y_pred_lasso_df = pd.DataFrame(data=test_y_pred_lasso, index=test["Id"], columns=["SalePrice"])
+test_y_pred_lasso_df.to_csv(".//all//pred_lasso.csv", sep=",")
+
+from sklearn.neural_network import MLPRegressor
+nn = MLPRegressor(activation='logistic',max_iter=20000,learning_rate_init=0.0005)
+nn.fit(x,y)
+test_y_pred_nn = nn.predict(test_x)
+
+test_y_pred_nn_df = pd.DataFrame(data=test_y_pred_nn, index=test["Id"], columns=["SalePrice"])
+test_y_pred_nn_df.to_csv(".//all//pred_n.csv", sep=",")
