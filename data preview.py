@@ -3,6 +3,28 @@ from sklearn import datasets, linear_model
 from sklearn.metrics import mean_squared_error
 
 mydf = pd.read_csv('.//all//train.csv', sep=',', na_values="NA")
+
+mydf.isnull().sum().sort_values(ascending=False)
+mydf['PoolQc'].fillna("NotApplicable")
+mydf['MiscFeature'].fillna("NotApplicbple")
+mydf["Alley"].fillna("NotApplicable")
+mydf['Fence'].fillna("NotApplicable")
+mydf['MiscFeature'].fillna("NotApplicable")
+mydf['LotFrontage'].fillna("NotApplicable")
+from scipy import stats
+
+UniqueNames = mydf["Neighborhood"].unique()
+
+#create a data frame dictionary to store your data frames
+DataFrameDict = {elem : pd.DataFrame for elem in UniqueNames}
+
+for key in DataFrameDict.keys():
+    DataFrameDict[key] = mydf[:][mydf["Neighborhood"]== key]
+
+
+f_val, p_val = stats.f_oneway(mydf["LotFrontage"])
+print ("One-way ANOVA P =", p_val )
+
 mydf_dummy = pd.get_dummies(mydf, dummy_na=True)
 y = mydf_dummy['SalePrice']
 x = mydf_dummy.drop(['SalePrice'], axis=1)
