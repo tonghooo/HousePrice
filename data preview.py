@@ -11,6 +11,33 @@ mydf["Alley"].fillna("NotApplicable")
 mydf['Fence'].fillna("NotApplicable")
 mydf['MiscFeature'].fillna("NotApplicable")
 mydf['LotFrontage'].fillna("NotApplicable")
+
+#####################################################
+##imputation
+mydf['PoolQC'].fillna("NotApplicable")
+mydf['MiscFeature'].fillna("NotApplicbple")
+mydf["Alley"].fillna("NotApplicable")
+mydf['Fence'].fillna("NotApplicable")
+mydf['MiscFeature'].fillna("NotApplicable")
+mydf['GarageType'].fillna("NotApplicable")
+mydf['GarageCond'].fillna("NotApplicable")
+mydf['GarageQual'].fillna("NotApplicable")
+mydf['GarageFinish'].fillna("NotApplicable")
+mydf['GarageYrBlt'].fillna(0)
+
+mydf['BsmtExposure'].fillna("NotApplicable")
+mydf['BsmtFinType2'].fillna("NotApplicable")
+mydf['BsmtFinType1'].fillna("NotApplicable")
+mydf['BsmtCond'].fillna("NotApplicable")
+mydf['BsmtQual'].fillna("NotApplicable")
+
+
+mydf["MasVnrType"] = mydf["MasVnrType"].fillna("None")
+mydf["MasVnrArea"] = mydf["MasVnrArea"].fillna(0)
+mydf['Electrical'] = mydf['Electrical'].fillna(mydf['Electrical'].mode()[0])
+
+#####################################################
+
 from scipy import stats
 
 UniqueNames = mydf["Neighborhood"].unique()
